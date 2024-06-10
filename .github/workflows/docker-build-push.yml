@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    tags:
-      - '*.*.*' 
 
 jobs:
   build-and-push:
@@ -26,18 +24,9 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      - name: Extract version tag
-        id: extract_version
-        run: |
-          if [[ $GITHUB_REF == refs/tags/* ]]; then
-            echo "::set-output name=tag::${GITHUB_REF#refs/tags/}"
-          else
-            echo "::set-output name=tag::latest"
-          fi
-
       - name: Build and Push
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: raphaelderouelle/app:${{ steps.extract_version.outputs.tag }}
+          tags: raphaelderouelle/app:latest
