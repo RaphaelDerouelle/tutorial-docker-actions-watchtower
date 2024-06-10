@@ -40,4 +40,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: username/app:${{ steps.extract_version.outputs.tag }}
+          tags: raphaelderouelle/app:${{ steps.extract_version.outputs.tag }}
